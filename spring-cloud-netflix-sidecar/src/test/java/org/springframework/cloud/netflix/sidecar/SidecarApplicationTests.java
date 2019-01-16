@@ -119,7 +119,7 @@ public class SidecarApplicationTests {
 	@SpringBootTest(classes = SidecarApplication.class, webEnvironment = RANDOM_PORT, value = {
 			"spring.application.name=mytest", "spring.cloud.client.hostname=mhhost", "spring.application.instance_id=1",
 			"eureka.instance.hostname=mhhost1", "sidecar.hostname=mhhost2", "sidecar.port=7000", "sidecar.ipAddress=127.0.0.1",
-			"server.context-path=/foo"})
+			"server.servlet.context-path=/foo"})
 	public static class ServerContextPathStatusAndHealthCheckUrls {
 		@Autowired
 		EurekaInstanceConfigBean config;

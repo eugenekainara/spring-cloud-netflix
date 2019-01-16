@@ -137,7 +137,7 @@ public class EurekaClientAutoConfiguration {
 		String ipAddress = getProperty("eureka.instance.ip-address");
 		boolean isSecurePortEnabled = Boolean.parseBoolean(getProperty("eureka.instance.secure-port-enabled"));
 
-		String serverContextPath = env.getProperty("server.context-path", "/");
+		String serverContextPath = env.getProperty("server.servlet.context-path", "/");
 		int serverPort = Integer.valueOf(env.getProperty("server.port", env.getProperty("port", "8080")));
 
 		Integer managementPort = env.getProperty("management.server.port", Integer.class);// nullable. should be wrapped into optional
@@ -168,6 +168,11 @@ public class EurekaClientAutoConfiguration {
 		}
 		if (StringUtils.hasText(healthCheckUrlPath)) {
 			instance.setHealthCheckUrlPath(healthCheckUrlPath);
+		}
+
+		String homePageUrlPath = instance.getHomePageUrlPath();
+		if (homePageUrlPath.equals("/") && !homePageUrlPath.equals(serverContextPath)) {
+			instance.setHomePageUrlPath(serverContextPath);
 		}
 
 		ManagementMetadata metadata = managementMetadataProvider.get(instance, serverPort,
